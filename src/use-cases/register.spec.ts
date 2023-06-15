@@ -1,16 +1,20 @@
-import { expect, describe, it } from 'vitest'
+import { expect, describe, it, beforeEach } from 'vitest'
 import { RegisterUseCase } from './register'
 
 import { compare } from 'bcryptjs'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/users-repository-in-memory'
 import { UserAlreadyExistsError } from './errors/user-already-exists-error'
 
+let inMemoryRepository: InMemoryUsersRepository
+let SUT: RegisterUseCase
 describe('Register use case', () => {
-  it('Should be able to register a user', async () => {
-    const inMemoryRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(inMemoryRepository)
+  beforeEach(() => {
+    inMemoryRepository = new InMemoryUsersRepository()
+    SUT = new RegisterUseCase(inMemoryRepository)
+  })
 
-    const { user } = await registerUseCase.execute({
+  it('Should be able to register a user', async () => {
+    const { user } = await SUT.execute({
       name: 'jhon Doe',
       email: 'jhonDoe@email.com',
       password: 'JhonDoe123',
@@ -21,10 +25,7 @@ describe('Register use case', () => {
   })
 
   it('should hash user password upon registration', async () => {
-    const inMemoryUsersRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(inMemoryUsersRepository)
-
-    const { user } = await registerUseCase.execute({
+    const { user } = await SUT.execute({
       name: 'joão doe',
       email: 'joaodoe@email.com',
       password: 'manga2231',
@@ -41,12 +42,9 @@ describe('Register use case', () => {
   })
 
   it('Should not be able to regiter with same email twice', async () => {
-    const inMemoryUserRepository = new InMemoryUsersRepository()
-    const registerUseCase = new RegisterUseCase(inMemoryUserRepository)
-
     const email = 'erivaldo@email.com'
 
-    await registerUseCase.execute({
+    await SUT.execute({
       name: 'erivaldo',
       email,
       password: '12recicly41',
@@ -54,7 +52,7 @@ describe('Register use case', () => {
 
     // valida se a Promise será rejeitada com um erro de classe
     await expect(() =>
-      registerUseCase.execute({
+      SUT.execute({
         name: 'erivaldo',
         email,
         password: '12recicly41',
