@@ -16,27 +16,27 @@ describe('Fetch nearby gyms use case', () => {
       title: 'near gym',
       description: null,
       phone: null,
-      // -7.7478629,-35.6075115
-      latitude: -7.7478629,
-      longitude: -35.6075115,
+      // -7.745215837854092, -35.60253327603451
+      latitude: -7.745215837854092,
+      longitude: -35.60253327603451,
     })
 
     await gymsRepository.create({
       title: 'far gym',
       description: null,
       phone: null,
-      // -8.043133,-35.0166183
-      latitude: -8.0431339,
-      longitude: -35.0166183,
+      // -7.683844046098058, -35.510403521827186
+      latitude: -7.683844046098058,
+      longitude: -35.510403521827186,
     })
 
     const { gyms } = await SUT.execute({
-      userLatitude: -7.7478629,
-      userLongitude: -35.6075115,
+      userLatitude: -7.748894133704862,
+      userLongitude: -35.60109561214611,
     })
     console.log(gyms)
 
     expect(gyms).toHaveLength(1)
-    expect(gyms).toEqual([expect.objectContaining({ title: 'far gym' })])
+    expect(gyms).toEqual([expect.objectContaining({ title: 'near gym' })])
   })
 })

@@ -6,9 +6,9 @@ GymPass styl app.
 
 - [x] Deve ser possível se cadastrar;
 - [x] Deve ser possível se autenticar;
-- [] Deve ser possível obter o perfil de um usuário logado;
-- [] Deve ser possível obter o números de check-in realizados pelos usuário logado;
-- [] Deve ser possível o usuários obter seu histórico de check-ins;
+- [x] Deve ser possível obter o perfil de um usuário logado;
+- [x] Deve ser possível obter o números de check-in realizados pelos usuário logado;
+- [x] Deve ser possível o usuários obter seu histórico de check-ins;
 - [] Deve ser possível o usuário obter academias próximas;
 - [] Deve ser possível o usuário buscar academias pelo nome;
 - [] Deve ser possível o usuário realizar check-in em uma academia;
@@ -30,3 +30,9 @@ GymPass styl app.
 - [x] Os dados precisam estar persistidos em um banco de dados postgresSQL
 - [] Todas as listas precisam estar paginadas com até 20 items por paginas;
 - [] O usuário precisa ser identificado por um JWT
+
+
+// para configurar o ambiente de test vitest tem que linkar o pacote de teste 
+ ao projeto
+ 'npm link' no pacote de test
+ 'npm link ${pacote}' no projeto
