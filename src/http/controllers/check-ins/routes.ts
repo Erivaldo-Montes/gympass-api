@@ -9,7 +9,7 @@ export async function checkIns(app: FastifyInstance) {
   await app.addHook('onRequest', verifyJWT)
 
   app.get('/check-in/metrics', getUserMetricsController)
-  app.get('check-in/history', checkInsHistoryController)
+  app.get('/check-in/history', checkInsHistoryController)
 
   app.post('/gym/:gymId/check-in', createCheckInController)
   app.post('/check-in/:checkInId/validate', validateCheckInController)
