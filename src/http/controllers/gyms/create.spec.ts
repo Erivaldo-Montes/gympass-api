@@ -1,18 +1,31 @@
-import { beforeEach } from 'node:test'
-import { describe } from 'vitest'
 import request from 'supertest'
+import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { app } from '@/app'
 import { CreateAndAuthenticateUser } from '@/utils/test/create-and-authenticate'
 
 describe('create gym', () => {
-  beforeEach(() => {})
+  beforeAll(() => {
+    app.ready()
+  })
+
+  afterAll(() => {
+    app.close()
+  })
 
   it('Should be able to create a gym', async () => {
     const { token } = await CreateAndAuthenticateUser(app)
 
-    const response = await request(app)
+    const response = await request(app.server)
       .post('/gym')
       .set('Authorization', `Bearer ${token}`)
-      .send({})
+      .send({
+        title: "Jhon's Academy",
+        description: 'some description',
+        phone: '12345678',
+        latitude: 7.7517794,
+        longitude: -35.6053779,
+      })
+
+    expect(response.status).toEqual(201)
   })
 })
