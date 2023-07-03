@@ -2,7 +2,7 @@ import request from 'supertest'
 import { app } from '@/app'
 
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { CreateAndAuthenticateUser } from '@/utils/test/create-and-authenticate'
+import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate'
 
 describe('nearby gym (e2e)', () => {
   beforeAll(() => {
@@ -14,7 +14,7 @@ describe('nearby gym (e2e)', () => {
   })
 
   it('Should be able fetch nearby gyms', async () => {
-    const { token } = await CreateAndAuthenticateUser(app)
+    const { token } = await createAndAuthenticateUser(app)
 
     await request(app.server)
       .post('/gym')
@@ -45,7 +45,6 @@ describe('nearby gym (e2e)', () => {
       .query({ latitude: -7.745215837854092, longitude: -35.60253327603451 })
       .send()
 
-    console.log(response.body)
     expect(response.status).toEqual(200)
     expect(response.body.gyms).toHaveLength(1)
     expect(response.body.gyms).toEqual([

@@ -1,7 +1,7 @@
 import request from 'supertest'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { app } from '@/app'
-import { CreateAndAuthenticateUser } from '@/utils/test/create-and-authenticate'
+import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate'
 
 describe('create gym', () => {
   beforeAll(() => {
@@ -13,7 +13,7 @@ describe('create gym', () => {
   })
 
   it('Should be able to create a gym', async () => {
-    const { token } = await CreateAndAuthenticateUser(app)
+    const { token } = await createAndAuthenticateUser(app)
 
     const response = await request(app.server)
       .post('/gym')

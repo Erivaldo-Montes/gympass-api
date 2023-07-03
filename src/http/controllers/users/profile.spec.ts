@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import request from 'supertest'
 import { app } from '@/app'
-import { CreateAndAuthenticateUser } from '@/utils/test/create-and-authenticate'
+import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate'
 
 describe('Profile e2e', () => {
   beforeAll(async () => {
@@ -17,7 +17,7 @@ describe('Profile e2e', () => {
   it('Should be able to get user profile', async () => {
     // faz requisição http sem preciser iniciar o servidor
 
-    const { token } = await CreateAndAuthenticateUser(app)
+    const { token } = await createAndAuthenticateUser(app)
 
     const profileResponse = await request(app.server)
       .get('/me')
