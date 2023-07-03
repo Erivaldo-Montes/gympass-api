@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, it } from 'vitest'
+import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { app } from '@/app'
 import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate'
 import { prisma } from '@/lib/prisma'
@@ -26,12 +26,14 @@ describe('Create check-in (e2e)', () => {
       },
     })
 
-    const response = await request(app)
+    const response = await request(app.server)
       .post(`/gym/${gym.id}/check-in`)
       .set('Authorization', `Bearer ${token}`)
       .send({
         latitude: 7.7517794,
         longitude: -35.6053779,
       })
+
+    expect(response.status).toEqual(201)
   })
 })
