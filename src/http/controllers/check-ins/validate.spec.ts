@@ -14,7 +14,7 @@ describe('validate check In', () => {
   })
 
   it('Should be able to validate check-In', async () => {
-    const { token } = await createAndAuthenticateUser(app)
+    const { token } = await createAndAuthenticateUser(app, true)
 
     const user = await prisma.user.findFirstOrThrow()
 
