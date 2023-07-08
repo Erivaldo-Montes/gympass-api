@@ -3,7 +3,7 @@ name: Run e2e tests
 on: [pull_request]
 
 jobs:
-  run-unit-test:
+  run-e2e-test:
     name: run e2e test
     runs-on: ubuntu-latest
 
@@ -28,6 +28,7 @@ jobs:
 
       
       - run: npm run test:e2e
+
       env:
         JWT_SECRET: testing
         DATABASE_URL: "postgresql://docker:docker@localhost:5432/apisolid?schema=public"
